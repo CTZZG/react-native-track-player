@@ -1,5 +1,7 @@
 package com.doublesymmetry.trackplayer.service
 
+import com.google.android.exoplayer2.DefaultRenderersFactory
+import com.google.android.exoplayer2.RenderersFactory
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -156,7 +158,17 @@ class MusicService : HeadlessJsTaskService() {
 
         val automaticallyUpdateNotificationMetadata = playerOptions?.getBoolean(AUTO_UPDATE_METADATA, true) ?: true
 
-        player = QueuedAudioPlayer(this@MusicService, playerConfig, bufferConfig, cacheConfig)
+        val renderersFactory = DefaultRenderersFactory(this /* MusicService context */)
+            .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER)
+
+        // player = QueuedAudioPlayer(this@MusicService, playerConfig, bufferConfig, cacheConfig)
+        player = QueuedAudioPlayer(
+            context = this, // this 指的是 MusicService 实例
+            playerConfig = playerConfig, // 这是 KotlinAudio 的 PlayerConfig
+            bufferConfig = bufferConfig,
+            cacheConfig = cacheConfig,
+            renderersFactory = renderersFactory // !! 传入我们配置的 RenderersFactory
+        )
         player.automaticallyUpdateNotificationMetadata = automaticallyUpdateNotificationMetadata
         observeEvents()
         setupForegrounding()
