@@ -53,7 +53,7 @@ dependencies {
     // implementation 'com.github.doublesymmetry:kotlinaudio:v2.1.0'
     // used when building against local maven
     // implementation "com.github.doublesymmetry:kotlin-audio:2.1.0"
-    implementation 'com.github.CTZZG:KotlinAudio:main'
+    implementation 'com.github.CTZZG:KotlinAudio:247f97b69e'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"
