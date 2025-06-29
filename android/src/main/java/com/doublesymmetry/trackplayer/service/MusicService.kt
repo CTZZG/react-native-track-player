@@ -773,7 +773,7 @@ class MusicService : HeadlessJsTaskService() {
     }
 
     @MainThread
-    override fun onBind(intent: Intent?): IBinder {
+    override fun onBind(intent: Intent): IBinder {
         return binder
     }
 
